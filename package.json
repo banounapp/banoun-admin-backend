@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.12.10",
+    "mongoose-findorcreate": "^3.0.0"
+  }
 }
