@@ -9,6 +9,7 @@ const dbConnection = async (req, res) => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
+      
     });
     console.log(`Connected to Atlas...`);
   } catch (err) {

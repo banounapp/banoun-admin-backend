@@ -12,7 +12,6 @@ const dbConnection =require('../config/db');
 const routerimg = new express.Router();
 const connection=require('../connection');
 
-
 const storage = new GridFsStorage({
     url: "mongodb+srv://omar1234:omar@banoun.lrzmb.mongodb.net/main?retryWrites=true&w=majority",
     file: (req, file) => {

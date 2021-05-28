@@ -1,62 +1,51 @@
-const mongoose =require('mongoose');
+const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema({
-  category: {
-    name: { type: String, 
-                  required:true 
+  name: {
+    type: String,
+    // required:true
+  },
+  sub_category: [
+    {
+      name: {
+        type: String,
 
-     },
-    sub_category: {
-      name: { type: String,
-
-required: true 
-},
+        // required: true
+      },
 
       articles: [
         {
           title: {
-            type:String,
-                    required:true 
-
+            type: String,
+            // required:true
           },
           description: {
-            type:String,
-                      required:true 
-
+            type: String,
+            // required:true
           },
-          image: {
-
-          },
+          image: {},
         },
       ],
 
       books: [
         {
           title: {
-            type:String,
-                                 required:true 
-
-
+            type: String,
+            //  required:true
           },
           description: {
-            type:String,
-                                required:true 
-
-
+            type: String,
+            // required:true
           },
-          image: {
-            },
+          image: {},
           link: {
-            type:String,
-required:true 
-
+            type: String,
+            // required:true
           },
         },
       ],
     },
-  },
+  ],
 });
 
-
-module.exports= Category  = mongoose.model('category', categorySchema);
-
+module.exports = Category = mongoose.model("category", categorySchema);

@@ -4,7 +4,8 @@ mongoose.connect("mongodb+srv://omar1234:omar@banoun.lrzmb.mongodb.net/main?retr
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useFindAndModify:false,
-    useCreateIndex:true
+    useCreateIndex:true,
+    
 });
 const connection = mongoose.connection;
 
