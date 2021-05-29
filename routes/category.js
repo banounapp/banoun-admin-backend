@@ -88,26 +88,7 @@ Router.post('/subGategory/:id', async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////
-
 const storage = new GridFsStorage({
     url: "mongodb+srv://omar1234:omar@banoun.lrzmb.mongodb.net/main?retryWrites=true&w=majority",
     file: (req, file) => {
@@ -132,8 +113,6 @@ connection.once('open', () => {
     gfs = Grid(connection.db, mongoose.mongo)
     gfs.collection('uploads')
 });
-
-
 
 
 
@@ -185,7 +164,6 @@ if (!category) {
 //        }
 //     }
 //  ])
-
 
 //    const subcateg =await Category.findOne({_id:req.params.category_id}).select({'sub_category':1}).where('sub_category._id').equals(req.params.sub_id)
 
@@ -297,6 +275,28 @@ res.json(category);
 
 
 
+
+//get api/all categories
+
+Router.get('/',async(req,res)=>{
+
+    try {
+    
+    
+        const category=await Category.find({})
+    
+        res.json(category);
+        
+    } catch (err) {
+    
+        console.error(err.message);
+        res.status(500).send('Server Error');
+        
+    }
+    
+    
+    });
+    
 
 
 
