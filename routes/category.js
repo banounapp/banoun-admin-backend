@@ -297,10 +297,59 @@ Router.get('/',async(req,res)=>{
     
     });
     
+  
+//get api/one category
 
+Router.get('/:category_id',async(req,res)=>{
 
+    try {
+    
+    
+        const category=await Category.findOne({_id:req.params.category_id})
+    
+        res.json(category);
+        
+    } catch (err) {
+    
+        console.error(err.message);
+        res.status(500).send('Server Error');
+        
+    }
+    
+    
+    });
+    
+//get api/one sub-category
 
+Router.get('/:category_id/:subcategory_id',async(req,res)=>{
 
+    try {
+    
+        const category=await Category.findOne({_id:req.params.category_id});
+      
+     
+        for(i=0;i<category.sub_category.length;i++){
 
+            if(category.sub_category[i]._id==req.params.subcategory_id){
+                 category.sub_category[i];
+                 res.json(category.sub_category[i]);
+
+            }
+        }
+
+         
+    
+        res.json("Not found");
+        
+    } catch (err) {
+    
+        console.error(err.message);
+        res.status(500).send('Server Error');
+        
+    }
+    
+    
+    });
+    
 
 module.exports=Router;
