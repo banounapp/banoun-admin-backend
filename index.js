@@ -18,7 +18,8 @@ app.use(express.json());
 
 //routers init
 app.use("/api/category", require("./routes/category"));
-// app.use("/api/auth", require("./routes/auth"));
+app.use("/api/upload", require("./routes/img"));
+
 const PORT=process.env.PORT||5000;
 
 

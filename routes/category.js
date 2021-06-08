@@ -19,75 +19,6 @@ const Grid = require('gridfs-stream');
 const connection =require('../connection');
 const { equal } = require("assert");
 ///////////////////////////////////////
-
-//post Gategory
-Router.post( '/',
-//  [check('name', 'Name is required ').not().isEmpty()],
-    async  (req, res) => {
-    //   const error = validationResult(req);
-    //   if (!error.isEmpty()) {
-    //     return res.status(400).json({ error: error.array() });
-    //   }
-  
-      const {name} = req.body;
-  
-      try {
-          let category = await Category.findOne({ name });
-          if (category) {
-              res.status(400).json({ error: [{ msg: 'Category is already exists' }] });
-          }  
-          else{
-            category = new Category({
-                name: name
-              });
-              await category.save(); 
-    
-    
-              res.send(category);
-              
-
-          }
-          //create new category
-        
-      } catch (err) {
-          console.log(err.message);
-          res.status(500).send('Server Error');
-      }
-  }
-);  
-
-
-
-
-
-Router.post('/subGategory/:id', async (req, res) => {
-    const id = req.params.id;
-    const { name } = req.body;
-    const newsub={
-        name
-    }
-    try {
-      const category = await Category.findOne({ _id: id });
-      if (!category) {
-        res.status(400).json({ error: [{ msg: 'Category not exists' }] });
-      }
-      else{
-          
-        
-        category.sub_category.unshift(newsub);
-        await category.save();
-        res.send(category);
-      }
-   
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).send('Server Error');
-    }
-  });
-  
-
-
-
 /////////////
 const storage = new GridFsStorage({
     url: "mongodb+srv://omar1234:omar@banoun.lrzmb.mongodb.net/main?retryWrites=true&w=majority",
@@ -113,6 +44,82 @@ connection.once('open', () => {
     gfs = Grid(connection.db, mongoose.mongo)
     gfs.collection('uploads')
 });
+
+
+
+//post Gategory
+Router.post( '/',upload.single('image'),
+//  [check('name', 'Name is required ').not().isEmpty()],
+    async  (req, res) => {
+    //   const error = validationResult(req);
+    //   if (!error.isEmpty()) {
+    //     return res.status(400).json({ error: error.array() });
+    //   }
+  
+      const {name,description} = req.body;
+  
+      try {
+          let category = await Category.findOne({ name });
+          if (category) {
+              res.status(400).json({ error: [{ msg: 'Category is already exists' }] });
+          }  
+          else{
+            category = new Category({
+                name: name,
+                description:description,
+                image:req.file
+
+              });
+              await category.save(); 
+    
+    
+              res.send(category);
+              
+
+          }
+          //create new category
+        
+      } catch (err) {
+          console.log(err.message);
+          res.status(500).send('Server Error');
+      }
+  }
+);  
+
+
+
+
+
+Router.post('/subGategory/:id', upload.single('image'),async (req, res) => {
+    const id = req.params.id;
+    const { name,description } = req.body;
+    const newsub={
+        name:name,
+        description:description,
+        image:req.file
+
+    }
+    try {
+      const category = await Category.findOne({ _id: id });
+      if (!category) {
+        res.status(400).json({ error: [{ msg: 'Category not exists' }] });
+      }
+      else{
+          
+        
+        category.sub_category.unshift(newsub);
+        await category.save();
+        res.send(category);
+      }
+   
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send('Server Error');
+    }
+  });
+  
+
+
 
 
 
@@ -350,6 +357,8 @@ Router.get('/:category_id/:subcategory_id',async(req,res)=>{
     
     
     });
+    
+
     
 
 module.exports=Router;

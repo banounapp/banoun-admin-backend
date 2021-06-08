@@ -33,7 +33,7 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 let gfs;
 connection.once('open', () => {
-    gfs = Grid(connction.db, mongoose.mongo)
+    gfs = Grid(connection.db, mongoose.mongo)
     gfs.collection('uploads')
 });
 
@@ -73,3 +73,4 @@ routerimg.delete('/delete/:_id', (req, res) => {
     })
 })
 
+module.exports=routerimg;
