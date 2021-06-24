@@ -3,10 +3,11 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const connectDB = require("./config/db");
 const config = require("config");
-
+const cors = require("cors");
 connectDB();
 
 //body parsing for body in request
+app.use(cors());
 app.use(express.json());
 
 //routers init
