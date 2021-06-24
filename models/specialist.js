@@ -91,6 +91,16 @@ const specialistSchema = Schema({
 
     default: "specialist",
   },
+  eventnumber: {
+    type: Number,
+    default: 0,
+  },
+  events: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+    },
+  ],
 });
 
 const Specialist = mongoose.model("Specialist", specialistSchema);

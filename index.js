@@ -13,6 +13,7 @@ app.use(express.json());
 app.use("/api/category", require("./routes/category"));
 app.use("/api/upload", require("./routes/img"));
 app.use("/api/specialist", require("./routes/specialist"));
+app.use("/api/event", require("./routes/event"));
 
 const PORT = process.env.PORT || 5000;
 

@@ -21,8 +21,11 @@ module.exports.sendReject = (name, email, confirmationCode) => {
       subject: " عائلة بنون",
       // text: "" +"   " +confirmationCode,
       html: `<h3>
-  <span  font-family: verdana;">  شكرا لتقديم طلبك </span> : نأسف جدا لعدم قبول طلبك كمتخصص عندنا يرجي التحقق من اليانات و التقدم في وقت اخر
+
+      <img src ="file:///C:/Users/THE%20LAPTOP%20SHOP/Downloads/Logo01@2x.png"/>
+  <span  font-family: verdana;">  شكرا لتقديم طلبك </span> : نأسف جدا لعدم قبول طلبك كمتخصص عندنا الرجاء التحقق من البيانات و التقديم في وقت اخر
     </h3>
+
     <b style="color:blue;"></b>`,
     })
     .catch((err) => console.log(err));
@@ -35,8 +38,31 @@ module.exports.sendApproval = (name, email, confirmationCode) => {
       to: email,
       subject: "عائلة بنون ",
       // text: "" +"   " +confirmationCode,
-      html: `<h3>
+      html: `
+
+      
+      <h3>
+
   <span  font-family: verdana;">  شكرا لتقديم طلبك </span> : تهانينا انت الان فرد من عائلة بنون تم تفعيل حسابك يمكنك الان الدخول كمتخصص 
+    </h3>
+    <b style="color:blue;"></b>`,
+    })
+    .catch((err) => console.log(err));
+};
+
+module.exports.sendDelEvent = (name, email, confirmationCode) => {
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: "عائلة بنون ",
+      // text: "" +"   " +confirmationCode,
+      html: `
+
+      
+      <h3>
+
+  <span  font-family: verdana;">  شكرا لتقديم طلبك </span> :نأسف لك تم رفض الحدث الخاص بك و تم اضافة حدث اخري لحسابك يمكنك عمل طلب مرة اخري 
     </h3>
     <b style="color:blue;"></b>`,
     })

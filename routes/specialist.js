@@ -84,7 +84,7 @@ Router.patch("/:id", async (req, res) => {
   try {
     const specialist = await Specialist.findOneAndUpdate(
       { _id: req.params.id },
-      { statusjob: "approval" }
+      { statusjob: "approval", eventnumber: 3 }
     );
     // if (specialist) {
     //   specialist
