@@ -46,9 +46,21 @@ connection.once("open", () => {
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-Router.get("/approval", async (req, res) => {
+Router.get("/DOC/approval", async (req, res) => {
   try {
     const specialist = await Specialist.find({ statusjob: "approval" });
+    res.json(specialist);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+Router.get("/DOC/Pending", async (req, res) => {
+  try {
+    const specialist = await Specialist.find({ statusjob: "Pending" });
+
     res.json(specialist);
   } catch (err) {
     console.error(err.message);
@@ -59,17 +71,6 @@ Router.get("/approval", async (req, res) => {
 Router.get("/:id", async (req, res) => {
   try {
     const specialist = await Specialist.findOne({ _id: req.params.id });
-
-    res.json(specialist);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-///////////////////////////////////////////////////////////////////////////////////////////////
-Router.get("/Pending", async (req, res) => {
-  try {
-    const specialist = await Specialist.find({ statusjob: "Pending" });
 
     res.json(specialist);
   } catch (err) {
