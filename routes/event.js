@@ -54,4 +54,17 @@ Router.delete("/:id", async (req, res) => {
   }
 });
 
+/****************get event  by id ***************/
+
+Router.get("/:id", async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id).populate("Specialist");
+
+    res.send(event);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = Router;
