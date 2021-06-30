@@ -15,6 +15,7 @@ app.use("/api/category", require("./routes/category"));
 app.use("/api/upload", require("./routes/img"));
 app.use("/api/specialist", require("./routes/specialist"));
 app.use("/api/event", require("./routes/event"));
+app.use("/api/connectus", require("./routes/connectus "));
 
 const PORT = process.env.PORT || 5000;
 

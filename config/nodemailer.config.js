@@ -68,3 +68,20 @@ module.exports.sendDelEvent = (name, email, confirmationCode) => {
     })
     .catch((err) => console.log(err));
 };
+
+module.exports.sendConnectus = (name, email, text) => {
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: "تواصل معانا",
+      // text: "" +"   " +confirmationCode,
+      html: `<h3>
+  <span  font-family: verdana;"> ${name} اهلا</span> : ${text}
+    </h3>
+    <b style="color:blue;">عائلة بنون</b>
+    
+    `,
+    })
+    .catch((err) => console.log(err));
+};
