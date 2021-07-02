@@ -21,6 +21,7 @@ const eventSchema = mongoose.Schema({
     enum: ["Pending", "accepted", "rejected"],
     default: "Pending",
   },
+  zoom: {},
 });
 
 // plugin findorcreate

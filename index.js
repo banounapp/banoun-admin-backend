@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const connectDB = require("./config/db");
 const config = require("config");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
 connectDB();
 
 //body parsing for body in request
