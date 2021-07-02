@@ -27,7 +27,7 @@ Router.get("/Pending", async (req, res) => {
     res.send(event);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send("Server Error").sort({ Date: -1 });
   }
 });
 /****************get Doc  ***************/
@@ -35,7 +35,9 @@ Router.get("/accepted", async (req, res) => {
   try {
     const event = await Event.find({
       status: "accepted",
-    }).populate("Specialist");
+    })
+      .populate("Specialist")
+      .sort({ Date: -1 });
 
     res.send(event);
   } catch (err) {
