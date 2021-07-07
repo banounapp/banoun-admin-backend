@@ -85,14 +85,19 @@ Router.get("/:id", async (req, res) => {
 Router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    const review = await Event.findOne({ _id: id });
     const updateEvent = async (zoom_URL) => {
-      const review = await Event.findOneAndUpdate(
-        { _id: id },
-        { status: "accepted", zoom: zoom_URL }
-      );
+      review.status = "accepted";
+      review.zoom = zoom_URL;
       await review.save();
       res.send(review);
     };
+    const getFormattedDate = (date) => {
+      return (
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+      );
+    };
+    console.log(getFormattedDate(review.Date));
 
     let axios_options = {
       url: `https://api.zoom.us/v2/users/${process.env.ZOOM_EMAIL}/meetings/`,
@@ -109,19 +114,20 @@ Router.patch("/:id", async (req, res) => {
       json: true,
 
       data: {
-        start_time: "2019-08-30T22:00:00Z",
+        start_time: review.Date,
         duration: 60,
       },
     };
     let JOIN_URL;
     axios(axios_options)
       .then(function (response) {
+        console.log(response.data);
         return response.data.join_url;
       })
       .then((joinUrl) => {
         console.log("changed");
         // JOIN_URL = joinUrl;
-        console.log(joinUrl);
+
         updateEvent(joinUrl);
         // res.send(joinUrl);
       });

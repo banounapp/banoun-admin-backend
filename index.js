@@ -18,6 +18,7 @@ app.use("/api/upload", require("./routes/img"));
 app.use("/api/specialist", require("./routes/specialist"));
 app.use("/api/event", require("./routes/event"));
 app.use("/api/connectus", require("./routes/connectus "));
+app.use("/api/admin", require("./routes/admin"));
 
 const PORT = process.env.PORT || 5000;
 
