@@ -12,7 +12,7 @@ const jwt = require("jsonwebtoken");
 router.post(
   "/",
   [
-    body("email", "username is required").exists(),
+    body("email", "eami; is required").exists(),
     body("password", "Password is required").exists(),
   ],
   async (req, res) => {
@@ -32,7 +32,7 @@ router.post(
       }
       // get user
 
-      admin = await Admin.findOne({ email: email });
+      const admin = await Admin.findOne({ email: email });
 
       if (!admin) {
         return res.status(200).json({
@@ -40,31 +40,24 @@ router.post(
           code: 1,
           error: "Wrong Username Or Password",
         });
-      } else {
-        type = "User";
       }
+      const isMatch = await bcrypt.compare(password, admin.password);
 
-      const isMatch = bycrpt.compare(password, FoundUser.password);
-
-      if (isMatch) {
-        // create a JWT Token
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Wrong Username Or Passwor" }] });
+      } else {
         const secret = config.get("jwtSecret");
 
-        const token = jwt.sign({ id: FoundUser._id }, secret, {
+        const token = jwt.sign({ id: admin._id }, secret, {
           expiresIn: 360000,
         });
-
         res.send({
           code: 0,
           isSuccess: true,
+          data: admin,
           token: token,
-          type: type,
-        });
-      } else {
-        return res.status(402).send({
-          isSuccess: false,
-          code: 2,
-          message: "Wrong Username Or Password",
         });
       }
     } catch (err) {
