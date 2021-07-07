@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Admin = require("../models/admin");
-const Specialist = require("../models/specialist");
 const { body, validationResult } = require("express-validator");
 const config = require("config");
 const bycrpt = require("bcryptjs");
@@ -32,7 +31,13 @@ router.post(
       }
       // get user
 
+      console.log(req.body);
+      console.log(email);
+
       const admin = await Admin.findOne({ email: email });
+
+      //  const admin = await Admin.find({});
+      console.log(admin);
 
       if (!admin) {
         return res.status(200).json({
@@ -41,7 +46,10 @@ router.post(
           error: "Wrong email Or Password",
         });
       }
-      const isMatch = await bcrypt.compare(password, admin.password);
+      let hashPassword = await bycrpt.hash(admin.password, 10);
+
+      // const isMatch = await bcrypt.compare(password, hashPassword);
+      const isMatch = password == admin.password;
 
       if (!isMatch) {
         return res
@@ -49,7 +57,6 @@ router.post(
           .json({ errors: [{ msg: "Wrong email Or Passwor" }] });
       } else {
         const secret = config.get("jwtSecret");
-
         const token = jwt.sign({ id: admin._id }, secret, {
           expiresIn: 360000,
         });
