@@ -38,7 +38,7 @@ router.post(
         return res.status(200).json({
           isSuccess: false,
           code: 1,
-          error: "Wrong Username Or Password",
+          error: "Wrong email Or Password",
         });
       }
       const isMatch = await bcrypt.compare(password, admin.password);
@@ -46,7 +46,7 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "Wrong Username Or Passwor" }] });
+          .json({ errors: [{ msg: "Wrong email Or Passwor" }] });
       } else {
         const secret = config.get("jwtSecret");
 
